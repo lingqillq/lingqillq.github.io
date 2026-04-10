@@ -19,12 +19,14 @@
       overflow-x: hidden;
     }
 
+    .site-frame {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
     /* ── NAV ── */
     nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.4rem 3rem;
+      padding: 1.4rem 2rem;
       border-bottom: 0.5px solid rgba(230,224,212,0.1);
       position: sticky;
       top: 0;
@@ -32,18 +34,26 @@
       backdrop-filter: blur(10px);
       z-index: 100;
     }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .nav-name {
       font-family: 'DM Mono', monospace;
       font-size: 12px;
       letter-spacing: 0.1em;
-      color: #c4b896;
+      color: #d4c8a8;
     }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
       font-size: 12px;
       color: #e6e0d4;
       text-decoration: none;
-      opacity: 0.45;
+      opacity: 0.65;
       letter-spacing: 0.05em;
       transition: opacity 0.2s;
       cursor: pointer;
@@ -65,7 +75,7 @@
       font-family: 'DM Mono', monospace;
       font-size: 10px;
       letter-spacing: 0.18em;
-      color: rgba(160,142,110,0.5);
+      color: rgba(196,184,150,0.75);
       text-transform: uppercase;
       margin-bottom: 2.5rem;
     }
@@ -128,28 +138,28 @@
     .hero-positioning {
       font-size: 14px;
       line-height: 1.8;
-      color: rgba(230,224,212,0.55);
+      color: rgba(230,224,212,0.8);
       max-width: 560px;
       margin-bottom: 1.5rem;
-      border-left: 1.5px solid rgba(196,184,150,0.3);
+      border-left: 1.5px solid rgba(196,184,150,0.4);
       padding-left: 1.2rem;
     }
     .hero-care {
       font-size: 14px;
       line-height: 1.8;
-      color: rgba(230,224,212,0.45);
+      color: rgba(230,224,212,0.65);
       max-width: 540px;
       margin-bottom: 2.5rem;
     }
-    .hero-care span { color: rgba(196,184,150,0.8); font-weight: 500; }
+    .hero-care span { color: #d4c8a8; font-weight: 500; }
     .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2.5rem; }
     .pill {
       font-family: 'DM Mono', monospace;
       font-size: 10px;
       letter-spacing: 0.07em;
-      color: rgba(196,184,150,0.65);
+      color: rgba(196,184,150,0.85);
       padding: 4px 11px;
-      border: 0.5px solid rgba(196,184,150,0.2);
+      border: 0.5px solid rgba(196,184,150,0.3);
       border-radius: 2px;
     }
     .cta-row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
@@ -167,14 +177,14 @@
       font-family: 'DM Mono', monospace;
       font-size: 9px;
       letter-spacing: 0.1em;
-      color: rgba(196,184,150,0.5);
+      color: rgba(196,184,150,0.8);
       text-transform: uppercase;
       margin-bottom: 0.6rem;
     }
     .focus-card p {
       font-size: 13px;
       line-height: 1.7;
-      color: rgba(230,224,212,0.42);
+      color: rgba(230,224,212,0.65);
     }
 
     /* ── PROJECTS ── */
@@ -220,7 +230,7 @@
     .pf-body p {
       font-size: 13px;
       line-height: 1.75;
-      color: rgba(230,224,212,0.45);
+      color: rgba(230,224,212,0.7);
       max-width: 600px;
       margin-bottom: 0.8rem;
     }
@@ -266,7 +276,7 @@
       color: #e6e0d4;
       margin-bottom: 0.5rem;
     }
-    .pcard p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.38); }
+    .pcard p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.62); }
 
     /* ── WRITING ── */
     .essay-row {
@@ -287,11 +297,11 @@
       color: #f0ece2;
       margin-bottom: 4px;
     }
-    .essay-sub { font-size: 12px; color: rgba(230,224,212,0.38); line-height: 1.55; max-width: 500px; }
+    .essay-sub { font-size: 12px; color: rgba(230,224,212,0.6); line-height: 1.55; max-width: 500px; }
     .essay-right {
       font-family: 'DM Mono', monospace;
       font-size: 10px;
-      color: rgba(160,142,110,0.4);
+      color: rgba(196,184,150,0.65);
       letter-spacing: 0.07em;
       white-space: nowrap;
       flex-shrink: 0;
@@ -307,9 +317,9 @@
 
     /* ── ABOUT ── */
     .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
-    .about-text p { font-size: 14px; line-height: 1.85; color: rgba(230,224,212,0.55); margin-bottom: 1.1rem; }
+    .about-text p { font-size: 14px; line-height: 1.85; color: rgba(230,224,212,0.75); margin-bottom: 1.1rem; }
     .about-text p strong { color: #e6e0d4; font-weight: 500; }
-    .about-text .hl { color: #c4b896; font-weight: 500; }
+    .about-text .hl { color: #d4c8a8; font-weight: 500; }
     .aside-block { margin-bottom: 2rem; }
     .aside-label {
       font-family: 'DM Mono', monospace;
@@ -322,7 +332,7 @@
     .aside-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
     .aside-list li {
       font-size: 13px;
-      color: rgba(230,224,212,0.42);
+      color: rgba(230,224,212,0.68);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -350,7 +360,7 @@
       margin-bottom: 0.6rem;
       letter-spacing: 0.07em;
     }
-    .github-card p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.38); }
+    .github-card p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.6); }
     .contact-split {
       display: flex;
       justify-content: space-between;
@@ -413,7 +423,7 @@
     .test-intro-desc {
       font-size: 13px;
       line-height: 1.8;
-      color: rgba(230,224,212,0.48);
+      color: rgba(230,224,212,0.68);
       margin-bottom: 0.6rem;
     }
     .test-meta {
@@ -492,7 +502,7 @@
       line-height: 1.2;
       margin-bottom: 0.5rem;
     }
-    .qcard-header p { font-size: 13px; line-height: 1.7; color: rgba(230,224,212,0.45); }
+    .qcard-header p { font-size: 13px; line-height: 1.7; color: rgba(230,224,212,0.68); }
     .situation-block {
       padding: 1.2rem 1.8rem;
       border-bottom: 0.5px solid rgba(230,224,212,0.07);
@@ -505,7 +515,7 @@
       text-transform: uppercase;
       margin-bottom: 0.5rem;
     }
-    .situation-block p { font-size: 13px; line-height: 1.7; color: rgba(230,224,212,0.6); }
+    .situation-block p { font-size: 13px; line-height: 1.7; color: rgba(230,224,212,0.78); }
     .sit-pair {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -519,7 +529,7 @@
       border: 0.5px solid rgba(230,224,212,0.08);
       border-radius: 3px;
     }
-    .sit-item p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.5); }
+    .sit-item p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.72); }
     .answer-area { padding: 1.4rem 1.8rem; }
     .ans-prompt { font-size: 12px; color: rgba(196,184,150,0.6); margin-bottom: 0.7rem; font-style: italic; }
     textarea {
@@ -550,7 +560,7 @@
     .hint {
       font-family: 'DM Mono', monospace;
       font-size: 10px;
-      color: rgba(196,184,150,0.3);
+      color: rgba(196,184,150,0.6);
       letter-spacing: 0.06em;
       flex: 1;
     }
@@ -599,7 +609,7 @@
       margin-bottom: 0.8rem;
       line-height: 1.25;
     }
-    .reveal-body p { font-size: 13px; line-height: 1.75; color: rgba(230,224,212,0.5); margin-bottom: 0.6rem; }
+    .reveal-body p { font-size: 13px; line-height: 1.75; color: rgba(230,224,212,0.7); margin-bottom: 0.6rem; }
     .what-tested {
       padding: 1rem 1.8rem;
       border-top: 0.5px solid rgba(196,184,150,0.1);
@@ -704,14 +714,18 @@
 <body>
 
   <nav>
-    <span class="nav-name">Lingqi Li</span>
-    <ul class="nav-links">
-      <li><a class="active" onclick="showPage('home',this)">Home</a></li>
-      <li><a onclick="showPage('projects',this)">Projects</a></li>
-      <li><a onclick="showPage('writing',this)">Writing</a></li>
-      <li><a onclick="showPage('about',this)">About</a></li>
-    </ul>
+    <div class="nav-inner">
+      <span class="nav-name">Lingqi Li</span>
+      <ul class="nav-links">
+        <li><a class="active" onclick="showPage('home',this)">Home</a></li>
+        <li><a onclick="showPage('projects',this)">Projects</a></li>
+        <li><a onclick="showPage('writing',this)">Writing</a></li>
+        <li><a onclick="showPage('about',this)">About</a></li>
+      </ul>
+    </div>
   </nav>
+
+  <div class="site-frame">
 
   <!-- ════════════════ HOME ════════════════ -->
   <div id="page-home" class="page active">
@@ -829,7 +843,7 @@
         <div id="question-container"></div>
         <div id="reveal-container"></div>
         <div class="nav-row">
-          <button class="btn-nav" id="btn-prev" onclick="prevQ()" disabled>← Back</button>
+          <button class="btn-nav" id="btn-prev" onclick="prevQ()" disabled>Back</button>
           <button class="btn-next-q" id="btn-next-q" onclick="nextQ()" disabled>Next →</button>
         </div>
       </div>
@@ -846,7 +860,7 @@
           <div class="dimension-list" id="dim-list"></div>
           <div style="display:flex;gap:1rem;flex-wrap:wrap">
             <button class="btn-restart" onclick="restartTest()">Take it again</button>
-            <button class="btn-nav" onclick="showPage('projects', document.querySelectorAll('.nav-links a')[1])" style="opacity:1">← Back to projects</button>
+            <button class="btn-nav" onclick="showPage('projects', document.querySelectorAll('.nav-links a')[1])" style="opacity:1">Back to projects</button>
           </div>
         </div>
       </div>
@@ -950,20 +964,22 @@
         </div>
         <div class="clinks">
           <!-- Replace these href values with your real links -->
-          <a class="clink" href="mailto:your@email.com">Email</a>
-          <a class="clink" href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn ↗</a>
-          <a class="clink" href="https://github.com/yourusername" target="_blank">GitHub ↗</a>
+          <a class="clink" href="mailto:lingqillq@gmail.com">Email</a>
+          <a class="clink" href="https://linkedin.com/in/lingqillq" target="_blank">LinkedIn ↗</a>
+          <a class="clink" href="https://github.com/lingqillq" target="_blank">GitHub ↗</a>
         </div>
       </div>
     </section>
   </div>
+
+  </div><!-- end site-frame -->
 
   <footer>
     <span>Lingqi Li · 2026</span>
     <span>Built with intention</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ── PAGE NAV ── */
     function showPage(id, triggerEl) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1146,7 +1162,7 @@
               <span class="hint">${q.hint}</span>
               <button class="btn-reveal" id="btn-reveal"
                 onclick="revealAnswer()"
-                ${saved.trim().length >= 15 ? '' : 'disabled'}>
+                ${saved.trim().length >= 3 ? '' : 'disabled'}>
                 Reveal structure →
               </button>
             </div>
@@ -1168,14 +1184,14 @@
     function handleInput(val) {
       answers[current] = val;
       const btn = document.getElementById('btn-reveal');
-      if (btn) btn.disabled = val.trim().length < 15;
+      if (btn) btn.disabled = val.trim().length < 3;
     }
 
     function revealAnswer() {
       if (!revealed[current]) {
         revealed[current] = true;
         revealedCount++;
-        if (answers[current].trim().length >= 15) answeredCount++;
+        if (answers[current].trim().length >= 3) answeredCount++;
       }
       showReveal(true);
       document.getElementById('btn-next-q').disabled = false;
@@ -1259,10 +1275,4 @@
       answers       = new Array(questions.length).fill('');
       answeredCount = 0;
       revealedCount = 0;
-      document.getElementById('test-score').style.display    = 'none';
-      document.getElementById('test-questions').style.display = 'block';
-      renderQuestion();
-    }
-  </script>
-</body>
-</html>
+      document.getElementById('test-score').style.display
