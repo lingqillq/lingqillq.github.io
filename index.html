@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lingqi Li</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #0e0e0c;
+      color: #e6e0d4;
+      font-family: 'Instrument Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 3rem;
+      border-bottom: 0.5px solid rgba(230,224,212,0.1);
+      position: sticky;
+      top: 0;
+      background: rgba(14,14,12,0.94);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    .nav-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: #c4b896;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 12px;
+      color: #e6e0d4;
+      text-decoration: none;
+      opacity: 0.45;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+
+    /* ── PAGES ── */
+    .page { display: none; animation: fadeIn 0.3s ease; }
+    .page.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SHARED ── */
+    .divider { height: 0.5px; background: rgba(230,224,212,0.08); margin: 0 3rem; }
+    .section { padding: 4.5rem 3rem; }
+    .sec-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: rgba(160,142,110,0.5);
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+    .btn-primary {
+      background: #e6e0d4;
+      color: #0e0e0c;
+      padding: 10px 22px;
+      border-radius: 2px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border: none;
+      font-family: 'Instrument Sans', sans-serif;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.82; }
+    .btn-ghost {
+      background: none;
+      border: none;
+      color: #e6e0d4;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      opacity: 0.45;
+      cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      transition: opacity 0.2s;
+    }
+    .btn-ghost:hover { opacity: 1; }
+
+    /* ── HOME ── */
+    .hero { padding: 6rem 3rem 4rem; max-width: 780px; }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: #a08e6e;
+      text-transform: uppercase;
+      margin-bottom: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 0.5px;
+      background: #a08e6e;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(40px, 5.5vw, 66px);
+      line-height: 1.07;
+      color: #f2ede4;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 em { font-style: italic; color: #c4b896; }
+    .hero-positioning {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(230,224,212,0.55);
+      max-width: 560px;
+      margin-bottom: 1.5rem;
+      border-left: 1.5px solid rgba(196,184,150,0.3);
+      padding-left: 1.2rem;
+    }
+    .hero-care {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(230,224,212,0.45);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-care span { color: rgba(196,184,150,0.8); font-weight: 500; }
+    .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.07em;
+      color: rgba(196,184,150,0.65);
+      padding: 4px 11px;
+      border: 0.5px solid rgba(196,184,150,0.2);
+      border-radius: 2px;
+    }
+    .cta-row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .home-focus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .focus-card {
+      padding: 1.4rem;
+      border: 0.5px solid rgba(230,224,212,0.09);
+      border-radius: 3px;
+    }
+    .focus-card-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: rgba(196,184,150,0.5);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .focus-card p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(230,224,212,0.42);
+    }
+
+    /* ── PROJECTS ── */
+    .proj-featured {
+      border: 0.5px solid rgba(230,224,212,0.13);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.25s;
+    }
+    .proj-featured:hover { border-color: rgba(230,224,212,0.32); }
+    .pf-top {
+      padding: 1.8rem 2.2rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .pbadge {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      background: rgba(196,184,150,0.12);
+      color: #c4b896;
+      padding: 3px 9px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+    .parrow {
+      font-size: 16px;
+      color: rgba(230,224,212,0.25);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .proj-featured:hover .parrow { color: rgba(230,224,212,0.75); transform: translate(2px,-2px); }
+    .pf-body { padding: 0 2.2rem 1.6rem; }
+    .pf-body h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: #f2ede4;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+    .pf-body p {
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(230,224,212,0.45);
+      max-width: 600px;
+      margin-bottom: 0.8rem;
+    }
+    .ptags {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      padding: 1.2rem 2.2rem;
+      border-top: 0.5px solid rgba(230,224,212,0.07);
+    }
+    .ptag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: rgba(230,224,212,0.3);
+      padding: 3px 8px;
+      border: 0.5px solid rgba(230,224,212,0.1);
+      border-radius: 2px;
+    }
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .pcard {
+      border: 0.5px solid rgba(230,224,212,0.1);
+      border-radius: 4px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .pcard:hover { border-color: rgba(230,224,212,0.28); background: rgba(230,224,212,0.02); }
+    .pcard-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(160,142,110,0.35);
+      margin-bottom: 0.7rem;
+    }
+    .pcard h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: #e6e0d4;
+      margin-bottom: 0.5rem;
+    }
+    .pcard p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.38); }
+
+    /* ── WRITING ── */
+    .essay-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.2rem 0;
+      border-bottom: 0.5px solid rgba(230,224,212,0.07);
+      cursor: pointer;
+      transition: opacity 0.2s;
+      gap: 1rem;
+    }
+    .essay-row:first-child { border-top: 0.5px solid rgba(230,224,212,0.07); }
+    .essay-row:hover { opacity: 0.7; }
+    .essay-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: #f0ece2;
+      margin-bottom: 4px;
+    }
+    .essay-sub { font-size: 12px; color: rgba(230,224,212,0.38); line-height: 1.55; max-width: 500px; }
+    .essay-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(160,142,110,0.4);
+      letter-spacing: 0.07em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .writing-note {
+      margin-top: 2.5rem;
+      padding: 1.4rem 1.6rem;
+      border: 0.5px solid rgba(196,184,150,0.15);
+      border-radius: 3px;
+      background: rgba(196,184,150,0.04);
+    }
+    .writing-note p { font-size: 13px; line-height: 1.75; color: rgba(230,224,212,0.4); font-style: italic; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { font-size: 14px; line-height: 1.85; color: rgba(230,224,212,0.55); margin-bottom: 1.1rem; }
+    .about-text p strong { color: #e6e0d4; font-weight: 500; }
+    .about-text .hl { color: #c4b896; font-weight: 500; }
+    .aside-block { margin-bottom: 2rem; }
+    .aside-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: rgba(160,142,110,0.45);
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+    .aside-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .aside-list li {
+      font-size: 13px;
+      color: rgba(230,224,212,0.42);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 5px;
+      border-bottom: 0.5px solid rgba(230,224,212,0.06);
+    }
+    .aside-list li::before {
+      content: '';
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: rgba(196,184,150,0.45);
+      flex-shrink: 0;
+    }
+    .github-card {
+      border: 0.5px solid rgba(196,184,150,0.2);
+      border-radius: 3px;
+      padding: 1.2rem 1.4rem;
+      background: rgba(196,184,150,0.04);
+      margin-top: 1rem;
+    }
+    .github-card .gc-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #c4b896;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.07em;
+    }
+    .github-card p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.38); }
+    .contact-split {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .contact-left h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 38px;
+      color: #f2ede4;
+      margin-bottom: 0.4rem;
+    }
+    .contact-left p { font-size: 13px; color: rgba(230,224,212,0.38); }
+    .clinks { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .clink {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(230,224,212,0.45);
+      text-decoration: none;
+      padding: 8px 14px;
+      border: 0.5px solid rgba(230,224,212,0.14);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .clink:hover { color: #e6e0d4; border-color: rgba(230,224,212,0.38); }
+    footer {
+      padding: 1.8rem 3rem;
+      border-top: 0.5px solid rgba(230,224,212,0.07);
+      display: flex;
+      justify-content: space-between;
+    }
+    footer span {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(230,224,212,0.18);
+      letter-spacing: 0.07em;
+    }
+
+    /* ── TEST PAGE ── */
+    .test-wrap { padding: 2.5rem 3rem 3rem; max-width: 700px; }
+    .test-intro-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: rgba(196,184,150,0.55);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .test-wrap h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 34px;
+      color: #f2ede4;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .test-wrap h1 em { font-style: italic; color: #c4b896; }
+    .test-intro-desc {
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(230,224,212,0.48);
+      margin-bottom: 0.6rem;
+    }
+    .test-meta {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid rgba(230,224,212,0.1);
+      margin-bottom: 2rem;
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 3px; }
+    .meta-lbl {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: rgba(160,142,110,0.5);
+      text-transform: uppercase;
+    }
+    .meta-val { font-size: 13px; color: rgba(230,224,212,0.6); }
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+    .prog-track {
+      flex: 1;
+      height: 2px;
+      background: rgba(230,224,212,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .prog-fill {
+      height: 100%;
+      background: #c4b896;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+    .prog-lbl {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(196,184,150,0.5);
+      white-space: nowrap;
+    }
+    .question-card {
+      border: 0.5px solid rgba(230,224,212,0.12);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .qcard-header {
+      padding: 1.4rem 1.8rem 1rem;
+      border-bottom: 0.5px solid rgba(230,224,212,0.07);
+    }
+    .level-badge { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 0.8rem; }
+    .lbadge {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      background: rgba(196,184,150,0.12);
+      color: #c4b896;
+      padding: 3px 9px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+    .qtype {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(196,184,150,0.4);
+      letter-spacing: 0.08em;
+    }
+    .qcard-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: #f0ece2;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .qcard-header p { font-size: 13px; line-height: 1.7; color: rgba(230,224,212,0.45); }
+    .situation-block {
+      padding: 1.2rem 1.8rem;
+      border-bottom: 0.5px solid rgba(230,224,212,0.07);
+    }
+    .sit-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: rgba(160,142,110,0.4);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .situation-block p { font-size: 13px; line-height: 1.7; color: rgba(230,224,212,0.6); }
+    .sit-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1.2rem 1.8rem;
+      border-bottom: 0.5px solid rgba(230,224,212,0.07);
+    }
+    .sit-item {
+      padding: 0.8rem 1rem;
+      background: rgba(230,224,212,0.03);
+      border: 0.5px solid rgba(230,224,212,0.08);
+      border-radius: 3px;
+    }
+    .sit-item p { font-size: 12px; line-height: 1.65; color: rgba(230,224,212,0.5); }
+    .answer-area { padding: 1.4rem 1.8rem; }
+    .ans-prompt { font-size: 12px; color: rgba(196,184,150,0.6); margin-bottom: 0.7rem; font-style: italic; }
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      background: rgba(230,224,212,0.04);
+      border: 0.5px solid rgba(230,224,212,0.14);
+      border-radius: 3px;
+      color: #e6e0d4;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 13px;
+      line-height: 1.65;
+      padding: 0.8rem 1rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    textarea:focus { border-color: rgba(196,184,150,0.4); }
+    textarea::placeholder { color: rgba(230,224,212,0.2); }
+    .submit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.9rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hint {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(196,184,150,0.3);
+      letter-spacing: 0.06em;
+      flex: 1;
+    }
+    .btn-reveal {
+      background: #c4b896;
+      color: #0e0e0c;
+      border: none;
+      padding: 9px 20px;
+      border-radius: 2px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .btn-reveal:hover { opacity: 0.82; }
+    .btn-reveal:disabled { opacity: 0.25; cursor: not-allowed; }
+    .reveal-panel {
+      margin-bottom: 1.5rem;
+      border: 0.5px solid rgba(196,184,150,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(196,184,150,0.04);
+    }
+    .reveal-header {
+      padding: 1rem 1.8rem;
+      border-bottom: 0.5px solid rgba(196,184,150,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .reveal-header span {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: #c4b896;
+      text-transform: uppercase;
+    }
+    .reveal-body { padding: 1.4rem 1.8rem; }
+    .reveal-answer {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: #f0ece2;
+      margin-bottom: 0.8rem;
+      line-height: 1.25;
+    }
+    .reveal-body p { font-size: 13px; line-height: 1.75; color: rgba(230,224,212,0.5); margin-bottom: 0.6rem; }
+    .what-tested {
+      padding: 1rem 1.8rem;
+      border-top: 0.5px solid rgba(196,184,150,0.1);
+      background: rgba(196,184,150,0.06);
+    }
+    .wt-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: rgba(196,184,150,0.5);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .wt-pills { display: flex; gap: 7px; flex-wrap: wrap; }
+    .wt-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(196,184,150,0.7);
+      padding: 3px 9px;
+      border: 0.5px solid rgba(196,184,150,0.2);
+      border-radius: 2px;
+    }
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.5rem;
+    }
+    .btn-nav {
+      background: none;
+      border: 0.5px solid rgba(230,224,212,0.15);
+      border-radius: 2px;
+      color: rgba(230,224,212,0.5);
+      font-size: 12px;
+      font-family: 'Instrument Sans', sans-serif;
+      padding: 8px 16px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover:not(:disabled) { border-color: rgba(230,224,212,0.35); color: #e6e0d4; }
+    .btn-nav:disabled { opacity: 0.2; cursor: not-allowed; }
+    .btn-next-q {
+      background: #e6e0d4;
+      color: #0e0e0c;
+      border: none;
+      border-radius: 2px;
+      font-size: 12px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600;
+      padding: 8px 20px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+    .btn-next-q:hover { opacity: 0.82; }
+    .btn-next-q:disabled { opacity: 0.25; cursor: not-allowed; }
+    .score-screen { padding: 2rem 0; }
+    .score-screen h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      color: #f0ece2;
+      margin-bottom: 0.5rem;
+    }
+    .score-screen .sub { font-size: 13px; color: rgba(230,224,212,0.4); margin-bottom: 2rem; }
+    .score-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
+    .score-cell { padding: 1rem; border: 0.5px solid rgba(230,224,212,0.1); border-radius: 3px; }
+    .sc-val { font-family: 'DM Serif Display', serif; font-size: 26px; color: #c4b896; margin-bottom: 3px; }
+    .sc-lab { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(196,184,150,0.4); letter-spacing: 0.1em; text-transform: uppercase; }
+    .dimension-list { margin-bottom: 2rem; }
+    .dim-row { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 0.5px solid rgba(230,224,212,0.07); }
+    .dim-name { font-size: 13px; color: rgba(230,224,212,0.55); }
+    .dim-bar-wrap { flex: 1; margin: 0 1rem; height: 3px; background: rgba(230,224,212,0.08); border-radius: 2px; overflow: hidden; }
+    .dim-bar { height: 100%; background: #c4b896; border-radius: 2px; }
+    .dim-score { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(196,184,150,0.6); }
+    .btn-restart {
+      background: none;
+      border: 0.5px solid rgba(230,224,212,0.2);
+      border-radius: 2px;
+      color: rgba(230,224,212,0.5);
+      font-size: 12px;
+      font-family: 'Instrument Sans', sans-serif;
+      padding: 10px 24px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+    .btn-restart:hover { border-color: rgba(230,224,212,0.4); color: #e6e0d4; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .section, .hero, .test-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .divider { margin: 0 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .sit-pair { grid-template-columns: 1fr; }
+      .score-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-name">Lingqi Li</span>
+    <ul class="nav-links">
+      <li><a class="active" onclick="showPage('home',this)">Home</a></li>
+      <li><a onclick="showPage('projects',this)">Projects</a></li>
+      <li><a onclick="showPage('writing',this)">Writing</a></li>
+      <li><a onclick="showPage('about',this)">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- ════════════════ HOME ════════════════ -->
+  <div id="page-home" class="page active">
+    <section class="hero">
+      <div class="hero-eyebrow">Open to new roles · 2026</div>
+      <h1>Systems first.<br><em>AI next.</em></h1>
+      <p class="hero-positioning">
+        Mechanical engineer transitioning into AI — focused on systems thinking, evaluation design, human-AI interaction, and conceptual reasoning.
+      </p>
+      <p class="hero-care">
+        I care about <span>how people and machines reason under complexity</span> — and about building evaluations and tools that surface that reasoning clearly. I'm drawn to work where rigor meets messiness: not clean benchmarks, but real behavior, real failure modes, and real judgment.
+      </p>
+      <div class="pill-row">
+        <span class="pill">Abstraction</span>
+        <span class="pill">Evaluation Design</span>
+        <span class="pill">Systems Thinking</span>
+        <span class="pill">Human-AI Interaction</span>
+        <span class="pill">Pattern Recognition</span>
+      </div>
+      <div class="cta-row">
+        <button class="btn-primary" onclick="showPage('projects', document.querySelectorAll('.nav-links a')[1])">See my work</button>
+        <button class="btn-ghost" onclick="showPage('about', document.querySelectorAll('.nav-links a')[3])">About me →</button>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" style="padding-top:3rem;padding-bottom:3rem">
+      <div class="sec-label">What I'm building toward</div>
+      <div class="home-focus-grid">
+        <div class="focus-card">
+          <div class="focus-card-label">Evaluation</div>
+          <p>Designing tests that measure what actually matters — not proxy metrics, but the structure of reasoning itself.</p>
+        </div>
+        <div class="focus-card">
+          <div class="focus-card-label">Behavior Analysis</div>
+          <p>Turning messy human and model behavior into structured, legible insight.</p>
+        </div>
+        <div class="focus-card">
+          <div class="focus-card-label">Human-AI Systems</div>
+          <p>Understanding where human judgment and AI capability complement — and where they fail — each other.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════ PROJECTS ════════════════ -->
+  <div id="page-projects" class="page">
+    <section class="section">
+      <div class="sec-label">Projects</div>
+
+      <div class="proj-featured" onclick="showPage('test', null)">
+        <div class="pf-top">
+          <span class="pbadge">Featured · Interactive</span>
+          <span class="parrow">↗</span>
+        </div>
+        <div class="pf-body">
+          <h2>Abstraction Test</h2>
+          <p>An interactive evaluation of structural reasoning and conceptual compression. Players work through 7 progressively complex scenarios designed to isolate how they form categories, compress information, and reason across levels of abstraction.</p>
+          <p style="color:rgba(196,184,150,0.55);font-size:12px">The test surfaces thinking patterns that standard assessments miss: the difference between recognizing a pattern and understanding the structure beneath it.</p>
+        </div>
+        <div class="ptags">
+          <span class="ptag">Evaluation Design</span>
+          <span class="ptag">Cognitive Science</span>
+          <span class="ptag">JavaScript</span>
+          <span class="ptag">Systems Thinking</span>
+          <span class="ptag">Human-facing AI</span>
+        </div>
+      </div>
+
+      <div class="proj-grid">
+        <div class="pcard">
+          <div class="pcard-num">02</div>
+          <h3>LLM Behavior Analysis</h3>
+          <p>Using language models to classify and synthesize patterns in complex outputs — evaluation of model behavior across varied prompting conditions.</p>
+          <div style="margin-top:1rem;display:flex;gap:6px;flex-wrap:wrap">
+            <span class="ptag">Python</span><span class="ptag">LLM Eval</span><span class="ptag">Notebooks</span>
+          </div>
+        </div>
+        <div class="pcard">
+          <div class="pcard-num">03</div>
+          <h3>Engineering Project</h3>
+          <p>A systems-level mechanical or robotics project showing design rigor, constraint thinking, and end-to-end technical execution.</p>
+          <div style="margin-top:1rem;display:flex;gap:6px;flex-wrap:wrap">
+            <span class="ptag">Mechanical</span><span class="ptag">Systems</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════ ABSTRACTION TEST ════════════════ -->
+  <div id="page-test" class="page">
+    <div class="test-wrap">
+      <div id="test-intro">
+        <div class="test-intro-label">Evaluation Instrument · v0.1</div>
+        <h1>Structural Reasoning<br><em>&amp; Abstraction Test</em></h1>
+        <p class="test-intro-desc">This is not a knowledge test. There are no facts to recall.</p>
+        <p class="test-intro-desc">Each question asks you to find the hidden structure beneath the surface of things — the pattern that remains when all domain-specific details are stripped away.</p>
+        <p class="test-intro-desc">Write freely. There are no trick answers. What matters is the shape of your thinking, not the vocabulary you use.</p>
+        <div class="test-meta">
+          <div class="meta-item"><span class="meta-lbl">Questions</span><span class="meta-val">7 levels</span></div>
+          <div class="meta-item"><span class="meta-lbl">Format</span><span class="meta-val">Free-form + reveal</span></div>
+          <div class="meta-item"><span class="meta-lbl">Time</span><span class="meta-val">No limit</span></div>
+          <div class="meta-item"><span class="meta-lbl">Designed by</span><span class="meta-val">Lingqi Li</span></div>
+        </div>
+        <button class="btn-primary" onclick="startTest()" style="width:100%;padding:12px">Begin evaluation →</button>
+      </div>
+
+      <div id="test-questions" style="display:none">
+        <div class="progress-bar">
+          <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+          <span class="prog-lbl" id="prog-lbl">1 / 7</span>
+        </div>
+        <div id="question-container"></div>
+        <div id="reveal-container"></div>
+        <div class="nav-row">
+          <button class="btn-nav" id="btn-prev" onclick="prevQ()" disabled>← Back</button>
+          <button class="btn-next-q" id="btn-next-q" onclick="nextQ()" disabled>Next →</button>
+        </div>
+      </div>
+
+      <div id="test-score" style="display:none">
+        <div class="score-screen">
+          <h2>Evaluation complete.</h2>
+          <p class="sub">Here's what your responses reveal about your reasoning profile.</p>
+          <div class="score-grid">
+            <div class="score-cell"><div class="sc-val" id="sc-answered">0</div><div class="sc-lab">Answered</div></div>
+            <div class="score-cell"><div class="sc-val" id="sc-revealed">0</div><div class="sc-lab">Reveals viewed</div></div>
+            <div class="score-cell"><div class="sc-val">7</div><div class="sc-lab">Levels total</div></div>
+          </div>
+          <div class="dimension-list" id="dim-list"></div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap">
+            <button class="btn-restart" onclick="restartTest()">Take it again</button>
+            <button class="btn-nav" onclick="showPage('projects', document.querySelectorAll('.nav-links a')[1])" style="opacity:1">← Back to projects</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════ WRITING ════════════════ -->
+  <div id="page-writing" class="page">
+    <section class="section">
+      <div class="sec-label">Writing &amp; Thinking</div>
+      <div id="writing-list">
+        <div class="essay-row">
+          <div>
+            <div class="essay-title">How to evaluate abstraction ability</div>
+            <div class="essay-sub">What makes abstraction testable — and why most attempts measure something else entirely.</div>
+          </div>
+          <span class="essay-right">Draft</span>
+        </div>
+        <div class="essay-row">
+          <div>
+            <div class="essay-title">The limits of benchmark-style evaluation</div>
+            <div class="essay-sub">Why benchmarks overfit to surface performance and miss the reasoning structures underneath.</div>
+          </div>
+          <span class="essay-right">Draft</span>
+        </div>
+        <div class="essay-row">
+          <div>
+            <div class="essay-title">What makes a good human-AI interaction metric</div>
+            <div class="essay-sub">On measuring collaboration quality — not just task completion, but the texture of joint reasoning.</div>
+          </div>
+          <span class="essay-right">Draft</span>
+        </div>
+        <div class="essay-row">
+          <div>
+            <div class="essay-title">Pattern recognition is useful. It can also overfit.</div>
+            <div class="essay-sub">Why fluency in patterns is a double-edged skill — and what distinguishes recognition from understanding.</div>
+          </div>
+          <span class="essay-right">Draft</span>
+        </div>
+        <div class="essay-row">
+          <div>
+            <div class="essay-title">Systems thinking and AI safety</div>
+            <div class="essay-sub">Applying feedback-loop thinking to societal-scale AI impacts: second-order effects, emergence, and fragility.</div>
+          </div>
+          <span class="essay-right">Draft</span>
+        </div>
+      </div>
+      <div class="writing-note">
+        <p>These are working notes — thinking-in-progress rather than finished arguments. I write to sharpen, not to conclude.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════ ABOUT ════════════════ -->
+  <div id="page-about" class="page">
+    <section class="section">
+      <div class="sec-label">About</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p><strong>I trained as a mechanical engineer.</strong> That meant learning to think in systems — constraints, forces, feedback, failure modes. Before a thing is built, you have to model it. And a good model isn't a picture of reality; it's a compression of the parts that matter.</p>
+          <p>I came to AI because it sits at the same intersection: <span class="hl">reasoning, behavior, and real-world consequence</span>. But the tools for understanding AI behavior are underdeveloped. We have benchmarks that measure performance on narrow tasks, not the cognitive structures underneath them.</p>
+          <p>That gap is where I want to work. I'm especially interested in <span class="hl">evaluation design</span> — building assessments that surface how systems (human or AI) actually reason — and in <span class="hl">human-AI interaction</span>, where the quality of collaboration depends on how well each side models the other.</p>
+          <p>My engineering background gave me rigor. What I'm building now is the vocabulary to apply that rigor to behavior, cognition, and the systems we're making.</p>
+        </div>
+        <div>
+          <div class="aside-block">
+            <div class="aside-label">Focuses</div>
+            <ul class="aside-list">
+              <li>Evaluation &amp; assessment design</li>
+              <li>Human-AI interaction</li>
+              <li>Behavior analysis</li>
+              <li>Conceptual reasoning</li>
+              <li>Systems thinking</li>
+            </ul>
+          </div>
+          <div class="aside-block">
+            <div class="aside-label">Capabilities</div>
+            <ul class="aside-list">
+              <li>Python, data analysis, notebooks</li>
+              <li>JavaScript, interactive apps</li>
+              <li>LLM prompting &amp; evaluation</li>
+              <li>Mechanical / systems engineering</li>
+              <li>Written communication</li>
+            </ul>
+          </div>
+          <div class="github-card">
+            <div class="gc-title">GitHub →</div>
+            <p>Clean repos with thoughtful READMEs. Each project documents what problem it solves, why it matters, how it works, and what's still open.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" style="padding-top:3rem">
+      <div class="contact-split">
+        <div class="contact-left">
+          <h2>Let's talk.</h2>
+          <p>Open to roles in AI evaluation, human-AI systems, and applied research.</p>
+        </div>
+        <div class="clinks">
+          <!-- Replace these href values with your real links -->
+          <a class="clink" href="mailto:your@email.com">Email</a>
+          <a class="clink" href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn ↗</a>
+          <a class="clink" href="https://github.com/yourusername" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <span>Lingqi Li · 2026</span>
+    <span>Built with intention</span>
+  </footer>
+
+  <script>
+    /* ── PAGE NAV ── */
+    function showPage(id, triggerEl) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      if (triggerEl) triggerEl.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ── TEST DATA ── */
+    const questions = [
+      {
+        level: 1, type: "Deep Pattern Equivalence",
+        title: "Find the shared structure",
+        intro: "Below are two situations. Ignore the surface details — the people, the setting, the specific actions. Find the underlying dynamic that makes them structurally the same thing.",
+        format: "pairs",
+        pairs: [
+          { a: "A parent constantly 'reminding' a child what to do.", b: "A boss sending follow-up emails every hour." }
+        ],
+        prompt: "What is the shared structural dynamic beneath both situations?",
+        hint: "Think about the relationship between the two parties, not the behavior itself.",
+        answer: "A control dynamic with repeated pressure — one agent continuously exerting force on another, signaling distrust and attempting to compensate for it through volume.",
+        what_tested: ["Cross-domain mapping", "Dynamic abstraction", "Structural equivalence"],
+        dimension: "Pattern equivalence"
+      },
+      {
+        level: 2, type: "Hidden Structure",
+        title: "One structure, three situations",
+        intro: "Three completely unrelated situations. Find the single hidden structural mechanism that unites all three. Not the moral. Not the theme. The deep dynamic.",
+        format: "situations",
+        situations: [
+          { label: "Situation A", text: "A person suddenly becomes extremely generous and helpful to everyone — right before asking for a big favor." },
+          { label: "Situation B", text: "A government lowers taxes and promises huge benefits during election season, even though the economy is struggling." },
+          { label: "Situation C", text: "A company shifts its branding to appear 'eco-friendly,' even though its manufacturing process hasn't changed." }
+        ],
+        prompt: "What is the single structural mechanism all three share?",
+        hint: "Look at the relationship between surface behavior and underlying intent.",
+        answer: "Strategic signaling with concealed motive — a visible outer layer of benevolence or virtue that masks a self-serving inner goal. The surface and depth are structurally asymmetric.",
+        what_tested: ["Multi-case abstraction", "Surface/depth distinction", "Structural asymmetry detection"],
+        dimension: "Structural inference"
+      },
+      {
+        level: 3, type: "Functional Mechanism",
+        title: "Find the function, not the theme",
+        intro: "Four situations share not just a theme, but a specific function — something they all do at a system level. 'Growth after crisis' is not the answer — it's still too shallow.",
+        format: "situations",
+        situations: [
+          { label: "Situation 1", text: "A forest burns down after a lightning strike, but ten years later the ecosystem becomes more diverse and resilient than before." },
+          { label: "Situation 2", text: "A person goes through a devastating breakup, falls apart emotionally, then later develops stronger boundaries and a clearer sense of self." },
+          { label: "Situation 3", text: "A failing company fires half its staff and shuts down two product lines, but later becomes more profitable and focused." },
+          { label: "Situation 4", text: "A scientific theory is disproven, forcing researchers to discard years of work — but that failure leads to a new paradigm that explains far more." }
+        ],
+        prompt: "What is the structural function — the system-level mechanism — that all four share?",
+        hint: "It is not 'bad becomes good.' Something is removed, which enables something else. Describe that chain.",
+        answer: "Adaptive pruning — removal of dysfunctional or low-utility components frees resources and forces reorganization, increasing the system's adaptive capacity. Destruction is the mechanism of optimization.",
+        what_tested: ["Second-order causality", "System function vs. theme", "Mechanistic thinking"],
+        dimension: "Causal depth"
+      },
+      {
+        level: 4, type: "Feedback Loop Dynamics",
+        title: "The rule governing the system over time",
+        intro: "This level asks for a meta-pattern — the rule that governs how these systems behave over time. 'Too much of a good thing' is correct but shallow.",
+        format: "situations",
+        situations: [
+          { label: "Situation 1", text: "A species evolves brighter feathers to attract mates. Eventually they become so bright they attract predators, and the population declines." },
+          { label: "Situation 2", text: "A city expands its road system to reduce traffic. Every expansion increases demand, leading to more traffic than before." },
+          { label: "Situation 3", text: "A student studies obsessively for years to achieve perfect scores. The obsession leads to burnout, and performance collapses." },
+          { label: "Situation 4", text: "A social media platform boosts engagement with extreme content. Engagement rises, but long-term trust collapses and the platform loses users." }
+        ],
+        prompt: "What is the single deep structural rule — the law of motion — that all four systems follow?",
+        hint: "Think about what feedback loops do when they drive themselves past a threshold. The answer is about the shape of the loop, not the outcome.",
+        answer: "Overextended positive feedback leading to self-limiting collapse — a reinforcing loop drives a system past its optimal point, at which the same mechanism that generated growth reverses and becomes destructive.",
+        what_tested: ["Feedback loop analysis", "Third-order abstraction", "Dynamic system modeling"],
+        dimension: "Systemic dynamics"
+      },
+      {
+        level: 4, type: "Self-Referential Loops",
+        title: "When the fix amplifies the problem",
+        intro: "These situations share a dynamic structure involving self-reference. The intervention doesn't stand apart from the problem — it becomes part of it.",
+        format: "situations",
+        situations: [
+          { label: "Situation A", text: "A child is slightly shy. Adults give extra attention, constantly asking 'Are you okay?' The child senses the worry and becomes more shy over time." },
+          { label: "Situation B", text: "A government freezes prices to prevent inflation. Producers stop producing, supply drops, and inflation increases even more." },
+          { label: "Situation C", text: "A person tries hard to 'act natural' on a first date. The effort makes them hyper-aware of themselves, so they appear even less natural." },
+          { label: "Situation D", text: "A group mediates a conflict between two parties. Their attempts accidentally intensify the dispute by forcing both sides to take a stance." }
+        ],
+        prompt: "What is the structural mechanism common to all four?",
+        hint: "The attempt to suppress or fix the problem is interacting with the problem. What does that interaction produce?",
+        answer: "Self-reinforcing feedback triggered by efforts to suppress the very thing being worried about — the intervention becomes entangled with the system it is trying to correct, amplifying the original condition.",
+        what_tested: ["Self-referential reasoning", "Intervention entanglement", "Loop identification"],
+        dimension: "Systemic dynamics"
+      },
+      {
+        level: 5, type: "Self-Erasing Goals",
+        title: "When success destroys the conditions for existence",
+        intro: "These systems are not just ironic or counterproductive. Their ideal success state structurally eliminates the conditions required for their own continued operation.",
+        format: "situations",
+        situations: [
+          { label: "Situation 1", text: "A therapist's highest goal is to help clients become independent. If perfectly successful, they would have no clients at all." },
+          { label: "Situation 2", text: "A movement built on 'abolishing all hierarchies' grows and needs organizers and coordinators — creating a hierarchy within the movement." },
+          { label: "Situation 3", text: "A language-learning community helps beginners become fluent quickly. Once fluent, members leave. The better it works, the more it empties itself." },
+          { label: "Situation 4", text: "A digital wellbeing app helps people reduce phone use. It becomes popular through social media. The more successful it is, the more people use phones to engage with content about using phones less." }
+        ],
+        prompt: "What is the precise structural paradox all four share?",
+        hint: "It's not just 'irony.' The paradox has a specific shape: the relationship between the system's goal and the system's existence.",
+        answer: "A self-erasing telos — these systems have goals that are structurally incompatible with their own continued operation. Their ideal end-state dissolves the conditions under which they exist. Full success equals self-elimination.",
+        what_tested: ["Paradox formalization", "Teleological reasoning", "Existence/goal entanglement"],
+        dimension: "Paradox structure"
+      },
+      {
+        level: 7, type: "Pathway Entrenchment",
+        title: "What repeated success silently removes",
+        intro: "The final level. These four situations share a structural rule about how systems change over time when one pathway is repeatedly reinforced. Find the precise mechanism — not the consequence, but the process.",
+        format: "situations",
+        situations: [
+          { label: "Situation A", text: "A platform gives users highly personalized content. Engagement rises. Years later, users become less open to surprise and harder to shift out of established patterns." },
+          { label: "Situation B", text: "A kingdom settles every dispute through central authority. Violence drops. Generations later, villages lose the habit of resolving conflicts internally." },
+          { label: "Situation C", text: "A scientist builds a model so successful that her field uses it everywhere. Researchers stop exploring phenomena that don't fit it. The field becomes coherent but less capable of noticing what the model leaves out." },
+          { label: "Situation D", text: "A person becomes known for being calm and composed. Because everyone relies on their steadiness, they begin filtering out their own confusion. Eventually they lose access to parts of themselves that would have warned them something was wrong." }
+        ],
+        prompt: "What is the deeper structural rule that unites all four?",
+        hint: "Something is being continuously reinforced. Something else is simultaneously, quietly disappearing. What is the precise relationship between those two processes?",
+        answer: "Repeated reinforcement of one successful pathway reorganizes the whole system around that pathway, while unused pathways weaken or disappear — reducing adaptive capacity without any visible failure signal until it is too late.",
+        what_tested: ["Path dependency", "Structural atrophy", "Long-horizon system thinking"],
+        dimension: "Adaptive capacity"
+      }
+    ];
+
+    /* ── TEST STATE ── */
+    let current = 0;
+    let revealed = new Array(questions.length).fill(false);
+    let answers  = new Array(questions.length).fill('');
+    let answeredCount = 0;
+    let revealedCount = 0;
+
+    function startTest() {
+      document.getElementById('test-intro').style.display = 'none';
+      document.getElementById('test-questions').style.display = 'block';
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = questions[current];
+      const total = questions.length;
+      document.getElementById('prog-fill').style.width = (((current) / total) * 100) + '%';
+      document.getElementById('prog-lbl').textContent = (current + 1) + ' / ' + total;
+
+      let sitsHTML = '';
+      if (q.format === 'pairs') {
+        q.pairs.forEach(pair => {
+          sitsHTML += `<div class="sit-pair">
+            <div class="sit-item"><div class="sit-label">A</div><p>${pair.a}</p></div>
+            <div class="sit-item"><div class="sit-label">B</div><p>${pair.b}</p></div>
+          </div>`;
+        });
+      } else {
+        q.situations.forEach(s => {
+          sitsHTML += `<div class="situation-block"><div class="sit-label">${s.label}</div><p>${s.text}</p></div>`;
+        });
+      }
+
+      const saved = answers[current] || '';
+      document.getElementById('question-container').innerHTML = `
+        <div class="question-card">
+          <div class="qcard-header">
+            <div class="level-badge">
+              <span class="lbadge">Level ${q.level}</span>
+              <span class="qtype">${q.type}</span>
+            </div>
+            <h2>${q.title}</h2>
+            <p>${q.intro}</p>
+          </div>
+          ${sitsHTML}
+          <div class="answer-area">
+            <div class="ans-prompt">${q.prompt}</div>
+            <textarea id="ans-input"
+              placeholder="Write your answer here — don't filter yourself, just think..."
+              oninput="handleInput(this.value)">${saved}</textarea>
+            <div class="submit-row">
+              <span class="hint">${q.hint}</span>
+              <button class="btn-reveal" id="btn-reveal"
+                onclick="revealAnswer()"
+                ${saved.trim().length >= 15 ? '' : 'disabled'}>
+                Reveal structure →
+              </button>
+            </div>
+          </div>
+        </div>`;
+
+      const revealEl = document.getElementById('reveal-container');
+      if (revealed[current]) {
+        showReveal(false);
+        document.getElementById('btn-next-q').disabled = false;
+      } else {
+        revealEl.innerHTML = '';
+        document.getElementById('btn-next-q').disabled = true;
+      }
+
+      document.getElementById('btn-prev').disabled = current === 0;
+    }
+
+    function handleInput(val) {
+      answers[current] = val;
+      const btn = document.getElementById('btn-reveal');
+      if (btn) btn.disabled = val.trim().length < 15;
+    }
+
+    function revealAnswer() {
+      if (!revealed[current]) {
+        revealed[current] = true;
+        revealedCount++;
+        if (answers[current].trim().length >= 15) answeredCount++;
+      }
+      showReveal(true);
+      document.getElementById('btn-next-q').disabled = false;
+    }
+
+    function showReveal(animate) {
+      const q = questions[current];
+      const pills = q.what_tested.map(t => `<span class="wt-pill">${t}</span>`).join('');
+      const parts = q.answer.split('—');
+      const headline = parts[0].trim();
+      const rest = parts.length > 1 ? '— ' + parts.slice(1).join('—').trim() : '';
+
+      document.getElementById('reveal-container').innerHTML = `
+        <div class="reveal-panel">
+          <div class="reveal-header">
+            <span>Structural answer</span>
+            <span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(196,184,150,0.4)">${q.dimension}</span>
+          </div>
+          <div class="reveal-body">
+            <div class="reveal-answer">${headline}</div>
+            ${rest ? `<p>${rest}</p>` : ''}
+          </div>
+          <div class="what-tested">
+            <div class="wt-label">What this question measures</div>
+            <div class="wt-pills">${pills}</div>
+          </div>
+        </div>`;
+
+      if (animate) {
+        document.getElementById('reveal-container').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function nextQ() {
+      if (current < questions.length - 1) {
+        current++;
+        renderQuestion();
+        document.getElementById('question-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        showScore();
+      }
+    }
+
+    function prevQ() {
+      if (current > 0) {
+        current--;
+        renderQuestion();
+      }
+    }
+
+    function showScore() {
+      document.getElementById('test-questions').style.display = 'none';
+      document.getElementById('test-score').style.display = 'block';
+      document.getElementById('sc-answered').textContent = answeredCount;
+      document.getElementById('sc-revealed').textContent = revealedCount;
+
+      const dimSeen  = {};
+      const dimTotal = {};
+      questions.forEach((q, i) => {
+        dimTotal[q.dimension] = (dimTotal[q.dimension] || 0) + 1;
+        if (revealed[i]) dimSeen[q.dimension] = (dimSeen[q.dimension] || 0) + 1;
+      });
+
+      let html = '';
+      Object.keys(dimTotal).forEach(d => {
+        const seen  = dimSeen[d]  || 0;
+        const total = dimTotal[d];
+        const pct   = Math.round((seen / total) * 100);
+        html += `<div class="dim-row">
+          <span class="dim-name">${d}</span>
+          <div class="dim-bar-wrap"><div class="dim-bar" style="width:${pct}%"></div></div>
+          <span class="dim-score">${seen}/${total}</span>
+        </div>`;
+      });
+      document.getElementById('dim-list').innerHTML = html;
+    }
+
+    function restartTest() {
+      current = 0;
+      revealed      = new Array(questions.length).fill(false);
+      answers       = new Array(questions.length).fill('');
+      answeredCount = 0;
+      revealedCount = 0;
+      document.getElementById('test-score').style.display    = 'none';
+      document.getElementById('test-questions').style.display = 'block';
+      renderQuestion();
+    }
+  </script>
+</body>
+</html>
